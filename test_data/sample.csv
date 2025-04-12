@@ -1,0 +1,7 @@
+head1,head2,head3
+string,sample1,sample2
+string,,blank
+string,"co,mm,a",comma
+int,128,256
+bool,True,false
+decimal,1.5,0.9.9
