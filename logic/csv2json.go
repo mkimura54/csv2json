@@ -6,6 +6,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+
+	"golang.org/x/text/encoding/japanese"
+	"golang.org/x/text/transform"
 )
 
 func ConvertToJson(csvFilePath string, option Option) (string, error) {
@@ -29,7 +32,18 @@ func readCsvFile(csvFilePath string) ([][]string, error) {
 	}
 	defer file.Close()
 
-	reader := csv.NewReader(file)
+	var reader *csv.Reader
+	utf8, err := isUTF8(csvFilePath)
+	if err != nil {
+		return nil, err
+	}
+	if utf8 {
+		reader = csv.NewReader(file)
+	} else {
+		r := transform.NewReader(file, japanese.ShiftJIS.NewDecoder())
+		reader = csv.NewReader(r)
+	}
+
 	records, err := reader.ReadAll()
 	if err != nil {
 		return nil, err
