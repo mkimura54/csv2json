@@ -11,7 +11,7 @@ import (
 
 const (
 	PROGRAM_NAME = "csv2json"
-	VERSION      = "v.0.1"
+	VERSION      = "v.0.2"
 
 	VALID_ARGS_MIN_LEN = 2
 )
